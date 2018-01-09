@@ -5,22 +5,34 @@ export default class PokemonResult extends React.Component {
 
 	render() {
 		const query = this.props.pokemon;
+		const typesList = this.props.types.map(function(type, index){
+			return <span key={index}>{type}</span>
+		});
+		const abilitiesList = this.props.abilities.map(function(ability, index){
+			return <span key={index}>{ability}</span>
+		});
 		if (query) {
 			return (
 				<div>
 					<div className="row mt-4">
 						<div className="col"></div>
 						<div className="col text-center">
-							<h1>{this.props.pokemon.toUpperCase()}</h1>
-							<span>{this.props.types[1]}, {this.props.types[0]}</span>
+							<h1>{this.props.pokemon.toUpperCase()} (#{this.props.id})</h1>
+							<div>
+								<span>Types: {typesList}</span>
+							</div>
+							<div>
+								<span>Abilities: {abilitiesList} </span>
+							</div>
 						</div>
 						<div className="col"></div>
 					</div>
 					<div className="row mt-1">
 						<div className="col"></div>
 						<div className="col text-center">
-							<p>#{this.props.id}</p>
-							<p>{this.props.weight}</p>
+							<p>Height: {this.props.height}</p>
+							<p>Weight: {this.props.weight}</p>
+							<p>Entry: {this.props.entry}</p>
 						</div>
 						<div className="col text-center">
 							<img src={this.props.url} alt="Sprite" height="100px" width="100px" />
