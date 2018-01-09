@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import $ from 'jquery';
 
-import SearchBar from './search.js';
-import PokemonResult from './pokemon.js';
+import SearchBar from './SearchBar';
+import PokemonResult from './PokemonResult';
+import LoadingSpinner from './LoadingSpinner';
 
 class App extends React.Component {
 
@@ -15,7 +16,8 @@ class App extends React.Component {
 			weight: 0,
 			url: '',
 			id: null,
-			types: []
+			types: [],
+			isLoading: false
 		}
 		this.onSearch = this.onSearch.bind(this);
 	}
@@ -24,13 +26,15 @@ class App extends React.Component {
 		return (
 			<div>
 				<SearchBar onSearch={this.onSearch} />
-				<PokemonResult pokemon={this.state.pokemon} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} />
+				{!this.state.isLoading && <PokemonResult pokemon={this.state.pokemon} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} />}
+				{this.state.isLoading && <LoadingSpinner />}
 			</div>
 		)
 	}
 
 	onSearch(pokemon) {
 		let searchedPokemon = pokemon;
+		this.setState({ isLoading: true });
 		$.ajax({
 			url: 'https://pokeapi.co/api/v2/pokemon/' + searchedPokemon,
 			dataType: 'json',
@@ -42,7 +46,8 @@ class App extends React.Component {
 					id: data.id,
 					types: data.types.map(function(type) {
 						return type.type.name;
-					})
+					}),
+					isLoading: false
 				});
 				console.log(data);
 				console.log(this.state.types);

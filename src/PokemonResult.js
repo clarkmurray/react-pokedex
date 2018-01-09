@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default class Pokemon extends React.Component {
+export default class PokemonResult extends React.Component {
 
 	render() {
 		const query = this.props.pokemon;
