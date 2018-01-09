@@ -1,4 +1,5 @@
 import React from 'react';
+import {Spinner} from 'spin.js';
 
 export default class LoadingSpinner extends React.Component {
 	render() {
@@ -6,10 +7,19 @@ export default class LoadingSpinner extends React.Component {
 			<div className="row mt-4">
 				<div className="col"></div>
 				<div className="col text-center">
-					<h1>Loading</h1>
+					<div id="spinner"></div>
 				</div>
 				<div className="col"></div>
 			</div>
 		);
+	}
+
+	componentDidMount() {
+		let opts = {
+			color: 'blue'
+		}
+		let target = document.getElementById('spinner');
+		let spinner = new Spinner(opts).spin(target);
+		target.appendChild(spinner.el);
 	}
 }
