@@ -11,7 +11,9 @@ class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = { 
-			pokemon: {}
+			pokemon: '',
+			weight: 0,
+			url: ''
 		}
 		this.onSearch = this.onSearch.bind(this);
 	}
@@ -20,7 +22,7 @@ class App extends React.Component {
 		return (
 			<div>
 				<SearchBar onSearch={this.onSearch} />
-				<PokemonResult pokemon={this.state.pokemon} />
+				<PokemonResult pokemon={this.state.pokemon} weight={this.state.weight} url={this.state.url} />
 			</div>
 		)
 	}
@@ -31,7 +33,7 @@ class App extends React.Component {
 			url: 'https://pokeapi.co/api/v2/pokemon/' + searchedPokemon,
 			dataType: 'json',
 			success: function (data) {
-				this.setState({ pokemon: data });
+				this.setState({ pokemon: data.name, weight: data.weight, url: data.sprites.front_default });
 				console.log(data);
 			}.bind(this), // make sure to bind the success function in order to set state
 			error: function(xhr, status, err) {
