@@ -29,7 +29,9 @@ export default class SearchBar extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.onSearch(this.refs.searchPokemon.value);
+		this.props.onSearch(this.refs.searchPokemon.value.toLowerCase());
 		this.refs.searchPokemon.value = '';
 	}
+
+
 }
