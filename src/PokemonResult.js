@@ -42,7 +42,7 @@ export default class PokemonResult extends React.Component {
 						</div>
 						<div className="col"></div>
 					</div>
-					<EvolutionChain baseStage={this.props.baseStage} secondStage={this.props.secondStage} thirdStage={this.props.thirdStage} />
+					<EvolutionChain evolutions={this.props.evolutions} />
 				</div>
 			)
 		} else {

@@ -21,9 +21,7 @@ class App extends React.Component {
 			abilities: [],
 			category: '',
 			entry: '',
-			baseStage: '',
-			secondStage: [],
-			thirdStage: [],
+			evolutions: [],
 			isLoading: false
 		}
 		this.onSearch = this.onSearch.bind(this);
@@ -36,7 +34,7 @@ class App extends React.Component {
 					<h1>React Pokedex</h1>
 				</div>
 				<SearchBar onSearch={this.onSearch} />
-				{!this.state.isLoading && <PokemonResult pokemon={this.state.pokemon} height={this.state.height} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} entry={this.state.entry} abilities={this.state.abilities} category={this.state.category} baseStage={this.state.baseStage} secondStage={this.state.secondStage} thirdStage={this.state.thirdStage} />}
+				{!this.state.isLoading && <PokemonResult pokemon={this.state.pokemon} height={this.state.height} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} entry={this.state.entry} abilities={this.state.abilities} category={this.state.category} evolutions={this.state.evolutions} />}
 				{this.state.isLoading && <LoadingSpinner />}
 			</div>
 		)
@@ -80,23 +78,26 @@ class App extends React.Component {
 							success: function (data) {
 								let base = data.chain.species.name;
 								let evolutions = [];
-								let thirdStage = [];
 								if (data.chain.evolves_to.length) {
 									for (let i=0; i < data.chain.evolves_to.length; i++) {
-										evolutions.push(data.chain.evolves_to[i].species.name);
-										if (data.chain.evolves_to[i].evolves_to.length){
+										if (data.chain.evolves_to[i].evolves_to.length){ 
 											for (let j=0; j < data.chain.evolves_to[i].evolves_to.length; j++) {
-												thirdStage.push(data.chain.evolves_to[i].evolves_to[j].species.name);
+												let evolutionChain = [base, data.chain.evolves_to[i].species.name, data.chain.evolves_to[i].evolves_to[j].species.name];
+												evolutions.push(evolutionChain);
+												console.log(evolutionChain);
 											}
+										} else {
+											let evolutionChain = [base, data.chain.evolves_to[i].species.name];
+											evolutions.push(evolutionChain);
+											console.log(evolutionChain);
 										}
 									}
+								} else {
+									evolutions.push(base);
 								}
-								console.log(data.chain);
-								console.log(base, evolutions, thirdStage);
+								console.log(evolutions);
 								this.setState({
-									baseStage: base,
-									secondStage: evolutions,
-									thirdStage: thirdStage
+									evolutions: evolutions
 								})
 							}.bind(this), // make sure to bind the success function in order to set state
 							error: function(xhr, status, err) {

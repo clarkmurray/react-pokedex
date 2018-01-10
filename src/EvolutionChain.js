@@ -3,19 +3,22 @@ import React from 'react';
 export default class EvolutionChain extends React.Component {
 	render() {
 		const vm = this;
-		const secondStages = this.props.secondStage.map(function(evolution, index){
-			return <li key={index}>{vm.props.baseStage} to {evolution}</li>
-		});
-		const thirdStages = this.props.thirdStage.map(function(evolution, index){
-			return <p key={index}>{evolution}</p>
+		const evolutionTree = this.props.evolutions.map(function(evolutionChain, index){
+			if (vm.props.evolutions[1]) {
+				const evolutionBranch = evolutionChain.map(function(evolution, index){
+					return <span key={index}>{evolution}</span>
+				});
+				return <li key={index}>{evolutionBranch}</li>
+			} else {
+				return <li key={index}>{vm.props.evolutions[0]}</li>
+			}
 		});
 		return (
 			<div className="row">
 				<div className="col"></div>
 					<div className="col">
 						<ul>
-							{secondStages}
-							{thirdStages}
+							{evolutionTree}
 						</ul>
 					</div>
 				<div className="col"></div>
