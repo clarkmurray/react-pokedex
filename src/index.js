@@ -5,6 +5,7 @@ import $ from 'jquery';
 
 import SearchBar from './SearchBar';
 import PokemonResult from './PokemonResult';
+import NoResults from './NoResults';
 import LoadingSpinner from './LoadingSpinner';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
 			category: '',
 			entry: '',
 			evolutions: [],
+			searchFailed: false,
 			isLoading: false
 		}
 		this.onSearch = this.onSearch.bind(this);
@@ -34,8 +36,9 @@ class App extends React.Component {
 					<h1>React Pokedex</h1>
 				</div>
 				<SearchBar onSearch={this.onSearch} />
-				{!this.state.isLoading && <PokemonResult pokemon={this.state.pokemon} height={this.state.height} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} entry={this.state.entry} abilities={this.state.abilities} category={this.state.category} evolutions={this.state.evolutions} />}
 				{this.state.isLoading && <LoadingSpinner />}
+				{!this.state.isLoading && this.state.searchFailed && <NoResults />}
+				{!this.state.isLoading && !this.state.searchFailed && <PokemonResult pokemon={this.state.pokemon} height={this.state.height} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} entry={this.state.entry} abilities={this.state.abilities} category={this.state.category} evolutions={this.state.evolutions} />}
 			</div>
 		)
 	}
@@ -97,7 +100,8 @@ class App extends React.Component {
 								}
 								console.log(evolutions);
 								this.setState({
-									evolutions: evolutions
+									evolutions: evolutions,
+									isLoading: false
 								})
 							}.bind(this), // make sure to bind the success function in order to set state
 							error: function(xhr, status, err) {
@@ -123,14 +127,17 @@ class App extends React.Component {
 						return ability.ability.name;
 					}),
 					entry: null,
-					isLoading: false
+					searchFailed: false
 				});
 				console.log(data);
 			}.bind(this), // make sure to bind the success function in order to set state
 			error: function(xhr, status, err) {
 				console.log(err);
-			}
-
+				this.setState({
+					searchFailed: true,
+					isLoading: false
+				});
+			}.bind(this)
 		});
 		
 	}
