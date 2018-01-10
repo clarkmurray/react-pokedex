@@ -1,4 +1,5 @@
 import React from 'react';
+import EvolutionChain from './EvolutionChain';
 
 
 export default class PokemonResult extends React.Component {
@@ -11,6 +12,7 @@ export default class PokemonResult extends React.Component {
 		const abilitiesList = this.props.abilities.map(function(ability, index){
 			return <span key={index}>{ability}</span>
 		});
+		const imgSrc = 'https://img.pokemondb.net/artwork/' + this.props.pokemon.toLowerCase() + '.jpg';
 		if (query) {
 			return (
 				<div>
@@ -30,15 +32,17 @@ export default class PokemonResult extends React.Component {
 					<div className="row mt-1">
 						<div className="col"></div>
 						<div className="col text-center">
+							<p>{this.props.category}</p>
 							<p>Height: {this.props.height}</p>
 							<p>Weight: {this.props.weight}</p>
 							<p>Entry: {this.props.entry}</p>
 						</div>
 						<div className="col text-center">
-							<img src={this.props.url} alt="Sprite" height="100px" width="100px" />
+							<img src={imgSrc} alt="Sprite "/>
 						</div>
 						<div className="col"></div>
 					</div>
+					<EvolutionChain baseStage={this.props.baseStage} secondStage={this.props.secondStage} thirdStage={this.props.thirdStage} />
 				</div>
 			)
 		} else {

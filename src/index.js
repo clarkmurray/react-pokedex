@@ -19,6 +19,11 @@ class App extends React.Component {
 			id: null,
 			types: [],
 			abilities: [],
+			category: '',
+			entry: '',
+			baseStage: '',
+			secondStage: [],
+			thirdStage: [],
 			isLoading: false
 		}
 		this.onSearch = this.onSearch.bind(this);
@@ -31,7 +36,7 @@ class App extends React.Component {
 					<h1>React Pokedex</h1>
 				</div>
 				<SearchBar onSearch={this.onSearch} />
-				{!this.state.isLoading && <PokemonResult pokemon={this.state.pokemon} height={this.state.height} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} entry={this.state.entry} abilities={this.state.abilities} />}
+				{!this.state.isLoading && <PokemonResult pokemon={this.state.pokemon} height={this.state.height} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} entry={this.state.entry} abilities={this.state.abilities} category={this.state.category} baseStage={this.state.baseStage} secondStage={this.state.secondStage} thirdStage={this.state.thirdStage} />}
 				{this.state.isLoading && <LoadingSpinner />}
 			</div>
 		)
@@ -50,6 +55,7 @@ class App extends React.Component {
 					success: function (data) {
 						console.log(data);
 						let flavorText;
+						let genus;
 						for (let i=0; i < data.flavor_text_entries.length; i++) {
 							if (data.flavor_text_entries[i].language.name === 'en') {
 								flavorText = data.flavor_text_entries[i].flavor_text;
@@ -57,15 +63,41 @@ class App extends React.Component {
 							}
 						}
 						console.log("The flavor text is " + flavorText);
+						for (let i=0; i < data.genera.length; i++) {
+							if (data.genera[i].language.name === 'en') {
+								genus = data.genera[i].genus;
+								break;
+							}
+						}
 						this.setState({
-							entry: flavorText
+							entry: flavorText,
+							category: genus
 						});
 						let evolutionURL = data.evolution_chain.url;
 						$.ajax({
 							url: evolutionURL,
 							dataType: 'json',
 							success: function (data) {
-								console.log(data);
+								let base = data.chain.species.name;
+								let evolutions = [];
+								let thirdStage = [];
+								if (data.chain.evolves_to.length) {
+									for (let i=0; i < data.chain.evolves_to.length; i++) {
+										evolutions.push(data.chain.evolves_to[i].species.name);
+										if (data.chain.evolves_to[i].evolves_to.length){
+											for (let j=0; j < data.chain.evolves_to[i].evolves_to.length; j++) {
+												thirdStage.push(data.chain.evolves_to[i].evolves_to[j].species.name);
+											}
+										}
+									}
+								}
+								console.log(data.chain);
+								console.log(base, evolutions, thirdStage);
+								this.setState({
+									baseStage: base,
+									secondStage: evolutions,
+									thirdStage: thirdStage
+								})
 							}.bind(this), // make sure to bind the success function in order to set state
 							error: function(xhr, status, err) {
 								console.log(err);
@@ -93,7 +125,6 @@ class App extends React.Component {
 					isLoading: false
 				});
 				console.log(data);
-				console.log(this.state.types);
 			}.bind(this), // make sure to bind the success function in order to set state
 			error: function(xhr, status, err) {
 				console.log(err);
