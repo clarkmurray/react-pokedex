@@ -6,7 +6,7 @@ export default class NoResults extends React.Component {
 			<div className="row">
 				<div className="col"></div>
 				<div className="col">
-					<h1>Your search could not be found</h1>
+					<h1>{this.props.pokemon} could not be found</h1>
 				</div>
 				<div className="col"></div>
 			</div>

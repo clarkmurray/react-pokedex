@@ -37,7 +37,7 @@ class App extends React.Component {
 				</div>
 				<SearchBar onSearch={this.onSearch} />
 				{this.state.isLoading && <LoadingSpinner />}
-				{!this.state.isLoading && this.state.searchFailed && <NoResults />}
+				{!this.state.isLoading && this.state.searchFailed && <NoResults pokemon={this.state.pokemon} />}
 				{!this.state.isLoading && !this.state.searchFailed && <PokemonResult pokemon={this.state.pokemon} height={this.state.height} weight={this.state.weight} url={this.state.url} id={this.state.id} types={this.state.types} entry={this.state.entry} abilities={this.state.abilities} category={this.state.category} evolutions={this.state.evolutions} />}
 			</div>
 		)
@@ -131,11 +131,12 @@ class App extends React.Component {
 				});
 				console.log(data);
 			}.bind(this), // make sure to bind the success function in order to set state
-			error: function(xhr, status, err) {
+			error: function(xhr, status, err, data) {
 				console.log(err);
 				this.setState({
 					searchFailed: true,
-					isLoading: false
+					isLoading: false,
+					pokemon: searchedPokemon
 				});
 			}.bind(this)
 		});
