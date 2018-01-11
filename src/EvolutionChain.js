@@ -1,6 +1,10 @@
 import React from 'react';
 
 export default class EvolutionChain extends React.Component {
+	constructor(props) {
+		super(props);
+		this.joinEvolutions = this.joinEvolutions.bind(this);
+	}
 	render() {
 		const vm = this;
 		const evolutionTree = this.props.evolutions.map(function(evolutionChain, index){
@@ -14,9 +18,9 @@ export default class EvolutionChain extends React.Component {
 			}
 		});
 		return (
-			<div className="row">
+			<div className="row mt-4">
 				<div className="col"></div>
-					<div className="col">
+					<div className="col text-center">
 						<ul>
 							{evolutionTree}
 						</ul>
@@ -24,5 +28,14 @@ export default class EvolutionChain extends React.Component {
 				<div className="col"></div>
 			</div>
 		)
+	}
+
+	componentDidMount() {
+		this.joinEvolutions(['dratini', 'dragonair', 'dragonite']);
+	}
+
+	joinEvolutions(array) {
+		array = array.join(" -> ");
+		console.log(array);
 	}
 }
