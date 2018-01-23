@@ -10,8 +10,8 @@ export default class SearchBar extends React.Component {
 
 	render() {
 		return (
-			<div className="row">
-				<div className="col text-center">
+			<div className="row pt-3 pb-3 searchRow">
+				<div className="col-md-6 offset-md-3 text-center">
 					<form onSubmit={this.handleSubmit}>
 						<div className="input-group">
 							<input className="form-control" placeholder='Search for a Pokemon' ref='searchPokemon' id="searchBar"></input>

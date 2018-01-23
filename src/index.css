@@ -1,3 +1,25 @@
 body {
   font-family: sans-serif;
 }
+
+.evolutionChain {
+	list-style-type: none;
+}
+
+.mainBlock {
+	border: 1px solid black;
+}
+
+.pokemonName {
+	/*background-color: #DC472C;
+	color: white;*/
+}
+
+.basicInfo {
+	background-color: #007bff;
+	color: white;
+}
+
+.flavorText {
+	background-color: #E6EEF1;
+}

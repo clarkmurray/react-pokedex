@@ -17,34 +17,34 @@ export default class PokemonResult extends React.Component {
 		if (query) {
 			return (
 				<div>
-					<div className="row mt-4">
-						<div className="col text-center">
-							<h1>{this.props.pokemon.toUpperCase()} (#{this.props.id})</h1>
+					<div className="row">
+						<div className="col-lg-8 offset-lg-2 text-center pokemonName p-3">
+							<h2>{this.props.pokemon.toUpperCase()} (#{this.props.id})</h2>
 							<h4>{this.props.category}</h4>
 						</div>
 					</div>
-					<div className="row mt-1">
-						<div className="col text-center">
-							<p>Types: {this.joinArray(this.props.types)}</p>
-						</div>
-						<div className="col text-center">
-							<p>Abilities: {this.joinArray(this.props.abilities)}</p>
-						</div>
-					</div>
-					<div className="row mt-1">
-						<div className="col text-center">
-							<p>Height: {this.convertHeight(this.props.height)}"</p>
-						</div>
-						<div className="col text-center">
-							<p>Weight: {this.convertWeight(this.props.weight)}lb</p>
-						</div>
-					</div>
-					<div className="row mt-4 d-flex">
-						<div className="col-lg-6 text-center order-lg-last">
+					<div className="row d-flex">
+						<div className="col-lg-4 text-center order-lg-last p-3">
 							<img src={imgSrc} alt="Sprite" className="align-middle"/>
 						</div>
-						<div className="col-lg-6 order-lg-first">
-							<p>{this.props.entry}</p>
+						<div className="col-lg-4 offset-lg-2 order-lg-first">
+							<div className="basicInfo pt-3">
+								<div className="text-center">
+									<p>Types: {this.joinArray(this.props.types)}</p>
+									<p>Abilities: {this.joinArray(this.props.abilities)}</p>
+									<div className="row text-center">
+										<div className="col">
+											<p>Height: {this.convertHeight(this.props.height)}"</p>
+										</div>
+										<div className="col">
+											<p>Weight: {this.convertWeight(this.props.weight)}lb</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div className="flavorText p-3">
+								<p>{this.props.entry}</p>
+							</div>
 						</div>
 					</div>
 					<EvolutionChain evolutions={this.props.evolutions} capitalizeItems={this.capitalizeItems} />

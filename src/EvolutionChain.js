@@ -28,7 +28,7 @@ export default class EvolutionChain extends React.Component {
 				return <li>{array}</li>;
 			}
 			let newArray = array[i].join(" -> ");
-			evolutionChains.push(<li>{newArray}</li>);
+			evolutionChains.push(<li className="evolutionChain">{newArray}</li>);
 		}
 		return evolutionChains;
 			

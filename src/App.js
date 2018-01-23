@@ -30,9 +30,6 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="col text-center">
-					<h1>React Pokedex</h1>
-				</div>
 				<SearchBar onSearch={this.onSearch} />
 				{this.state.isLoading && <LoadingSpinner />}
 				{!this.state.isLoading && this.state.searchFailed && <NoResults pokemon={this.state.pokemon} />}
