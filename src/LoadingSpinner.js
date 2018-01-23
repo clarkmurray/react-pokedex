@@ -5,11 +5,9 @@ export default class LoadingSpinner extends React.Component {
 	render() {
 		return (
 			<div className="row mt-4">
-				<div className="col"></div>
 				<div className="col text-center">
 					<div id="spinner"></div>
 				</div>
-				<div className="col"></div>
 			</div>
 		);
 	}

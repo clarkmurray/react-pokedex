@@ -11,18 +11,16 @@ export default class SearchBar extends React.Component {
 	render() {
 		return (
 			<div className="row">
-				<div className="col"></div>
 				<div className="col text-center">
 					<form onSubmit={this.handleSubmit}>
 						<div className="input-group">
-							<input className="form-control" placeholder='Search for a Pokemon' ref='searchPokemon'></input>
+							<input className="form-control" placeholder='Search for a Pokemon' ref='searchPokemon' id="searchBar"></input>
 							<div className="input-group-append">
 								<input type="submit" className="btn btn-primary" value="Search" />
 							</div>
 						</div>
 					</form>
 				</div>
-				<div className="col"></div>
 			</div>
 		)
 	}

@@ -18,28 +18,36 @@ export default class PokemonResult extends React.Component {
 			return (
 				<div>
 					<div className="row mt-4">
-						<div className="col"></div>
 						<div className="col text-center">
 							<h1>{this.props.pokemon.toUpperCase()} (#{this.props.id})</h1>
 							<h4>{this.props.category}</h4>
 						</div>
-						<div className="col"></div>
 					</div>
 					<div className="row mt-1">
-						<div className="col"></div>
-						<div className="col">
+						<div className="col text-center">
 							<p>Types: {this.joinArray(this.props.types)}</p>
-							<p>Abilities: {this.joinArray(this.props.abilities)}</p>
-							<p>Height: {this.convertHeight(this.props.height)}"</p>
-							<p>Weight: {this.convertWeight(this.props.weight)}lb</p>
-							<p>{this.props.entry}</p>
 						</div>
 						<div className="col text-center">
-							<img src={imgSrc} alt="Sprite "/>
+							<p>Abilities: {this.joinArray(this.props.abilities)}</p>
 						</div>
-						<div className="col"></div>
 					</div>
-					<EvolutionChain evolutions={this.props.evolutions} />
+					<div className="row mt-1">
+						<div className="col text-center">
+							<p>Height: {this.convertHeight(this.props.height)}"</p>
+						</div>
+						<div className="col text-center">
+							<p>Weight: {this.convertWeight(this.props.weight)}lb</p>
+						</div>
+					</div>
+					<div className="row mt-4 d-flex">
+						<div className="col-lg-6 text-center order-lg-last">
+							<img src={imgSrc} alt="Sprite" className="align-middle"/>
+						</div>
+						<div className="col-lg-6 order-lg-first">
+							<p>{this.props.entry}</p>
+						</div>
+					</div>
+					<EvolutionChain evolutions={this.props.evolutions} capitalizeItems={this.capitalizeItems} />
 				</div>
 			)
 		} else {
@@ -71,11 +79,14 @@ export default class PokemonResult extends React.Component {
 	joinArray(array) {
 		this.capitalizeItems(array);
 		array = array.join(", ");
-		console.log(array);
 		return array;
 	}
 
 	capitalizeItems(array) {
+		if (typeof array === "string"){
+			array = array.charAt(0).toUpperCase() + array.substr(1);
+			return array;
+		}
 		for (let i = 0; i < array.length; i++) {
 			array[i] = array[i].charAt(0).toUpperCase() + array[i].substr(1);
 		}

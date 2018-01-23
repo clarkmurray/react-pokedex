@@ -5,37 +5,32 @@ export default class EvolutionChain extends React.Component {
 		super(props);
 		this.joinEvolutions = this.joinEvolutions.bind(this);
 	}
+
 	render() {
-		const vm = this;
-		const evolutionTree = this.props.evolutions.map(function(evolutionChain, index){
-			if (vm.props.evolutions[1]) {
-				const evolutionBranch = evolutionChain.map(function(evolution, index){
-					return <span key={index}>{evolution}</span>
-				});
-				return <li key={index}>{evolutionBranch}</li>
-			} else {
-				return <li key={index}>{vm.props.evolutions[0]}</li>
-			}
-		});
 		return (
 			<div className="row mt-4">
-				<div className="col"></div>
 					<div className="col text-center">
+						<p>Evolutions</p>
 						<ul>
-							{evolutionTree}
+							{this.joinEvolutions(this.props.evolutions)}
 						</ul>
 					</div>
-				<div className="col"></div>
 			</div>
 		)
 	}
 
-	componentDidMount() {
-		this.joinEvolutions(['dratini', 'dragonair', 'dragonite']);
-	}
-
 	joinEvolutions(array) {
-		array = array.join(" -> ");
-		console.log(array);
+		const vm = this;
+		let evolutionChains = [];
+		for (let i = 0; i < array.length; i++){
+			vm.props.capitalizeItems(array[i]);
+			if (typeof array === "string") {
+				return <li>{array}</li>;
+			}
+			let newArray = array[i].join(" -> ");
+			evolutionChains.push(<li>{newArray}</li>);
+		}
+		return evolutionChains;
+			
 	}
 }
