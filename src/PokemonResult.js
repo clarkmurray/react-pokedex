@@ -16,7 +16,8 @@ export default class PokemonResult extends React.Component {
 		const imgSrc = 'https://img.pokemondb.net/artwork/' + this.props.pokemon.toLowerCase() + '.jpg';
 		if (query) {
 			return (
-				<div>
+				<div className="mt-4">
+				<div className="mainResult">
 					<div className="row">
 						<div className="col-lg-8 offset-lg-2 text-center pokemonName p-3">
 							<h2>{this.props.pokemon.toUpperCase()} (#{this.props.id})</h2>
@@ -25,7 +26,7 @@ export default class PokemonResult extends React.Component {
 					</div>
 					<div className="row d-flex">
 						<div className="col-lg-4 text-center order-lg-last p-3">
-							<img src={imgSrc} alt="Sprite" className="align-middle"/>
+							<img src={imgSrc} alt="Sprite" className="align-middle sugimori"/>
 						</div>
 						<div className="col-lg-4 offset-lg-2 order-lg-first">
 							<div className="basicInfo pt-3">
@@ -47,6 +48,7 @@ export default class PokemonResult extends React.Component {
 							</div>
 						</div>
 					</div>
+				</div>
 					<EvolutionChain evolutions={this.props.evolutions} capitalizeItems={this.capitalizeItems} />
 				</div>
 			)

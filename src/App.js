@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 
 import SearchBar from './SearchBar';
+import AllPokemon from './AllPokemon';
 import PokemonResult from './PokemonResult';
 import NoResults from './NoResults';
 import LoadingSpinner from './LoadingSpinner';
@@ -31,6 +32,7 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<SearchBar onSearch={this.onSearch} />
+				<AllPokemon />
 				{this.state.isLoading && <LoadingSpinner />}
 				{!this.state.isLoading && this.state.searchFailed && <NoResults pokemon={this.state.pokemon} />}
 				{

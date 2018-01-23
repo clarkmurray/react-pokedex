@@ -1,5 +1,15 @@
 body {
   font-family: sans-serif;
+  background-color: #fafafa;
+}
+
+.searchRow {
+	background-color: #DC0A2D;
+	color: white;
+}
+
+.mainResult {
+	background-color: white;
 }
 
 .evolutionChain {
@@ -10,14 +20,19 @@ body {
 	border: 1px solid black;
 }
 
-.pokemonName {
-	/*background-color: #DC472C;
-	color: white;*/
-}
+/*.pokemonName {
+	background-color: #007bff;
+	color: white;
+}*/
 
 .basicInfo {
 	background-color: #007bff;
 	color: white;
+}
+
+.sugimori {
+	height: 100%;
+	width: 100%;
 }
 
 .flavorText {
