@@ -32,24 +32,26 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<SearchBar onSearch={this.onSearch} />
-				<AllPokemon />
-				{this.state.isLoading && <LoadingSpinner />}
-				{!this.state.isLoading && this.state.searchFailed && <NoResults pokemon={this.state.pokemon} />}
-				{
-					!this.state.isLoading && !this.state.searchFailed && 
-					<PokemonResult
-						 pokemon={this.state.pokemon}
-						 height={this.state.height} 
-						 weight={this.state.weight}
-						 url={this.state.url} 
-						 id={this.state.id} 
-						 types={this.state.types} 
-						 entry={this.state.entry} 
-						 abilities={this.state.abilities} 
-						 category={this.state.category} 
-						 evolutions={this.state.evolutions} 
-					/>
-				}
+				<div className="container">
+					<AllPokemon />
+					{this.state.isLoading && <LoadingSpinner />}
+					{!this.state.isLoading && this.state.searchFailed && <NoResults pokemon={this.state.pokemon} />}
+					{
+						!this.state.isLoading && !this.state.searchFailed && 
+						<PokemonResult
+							 pokemon={this.state.pokemon}
+							 height={this.state.height} 
+							 weight={this.state.weight}
+							 url={this.state.url} 
+							 id={this.state.id} 
+							 types={this.state.types} 
+							 entry={this.state.entry} 
+							 abilities={this.state.abilities} 
+							 category={this.state.category} 
+							 evolutions={this.state.evolutions} 
+						/>
+					}
+				</div>
 			</div>
 		)
 	}

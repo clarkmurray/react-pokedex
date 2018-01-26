@@ -7,13 +7,16 @@ export default class EvolutionChain extends React.Component {
 	}
 
 	render() {
+		const evolutions = this.props.evolutions.map((evolutionChain, index) =>
+			<img key={index} src="https://img.pokemondb.net/artwork/luvdisc.jpg" />
+		);
 		return (
 			<div className="row mt-4">
 					<div className="col text-center">
 						<p>Evolutions</p>
-						<ul>
-							{this.joinEvolutions(this.props.evolutions)}
-						</ul>
+						<div>
+							{evolutions}
+						</div>
 					</div>
 			</div>
 		)
@@ -22,15 +25,17 @@ export default class EvolutionChain extends React.Component {
 	joinEvolutions(array) {
 		const vm = this;
 		let evolutionChains = [];
-		for (let i = 0; i < array.length; i++){
-			vm.props.capitalizeItems(array[i]);
-			if (typeof array === "string") {
-				return <li>{array}</li>;
-			}
-			let newArray = array[i].join(" -> ");
-			evolutionChains.push(<li className="evolutionChain">{newArray}</li>);
-		}
-		return evolutionChains;
+		console.log(array);
+		// if (array.length === 1) {
+		// 	evolutionChains = array[0];
+		// 	console.log(evolutionChains);
+		// 	console.log("The loop will not be entered");
+		// 	return evolutionChains;
+		// }
+		// for (let i = 0; i < array.length; i++){
+		// 	console.log(array[i]);
+		// }
+		// return evolutionChains;
 			
 	}
 }
