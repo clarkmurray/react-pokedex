@@ -16,12 +16,7 @@ export default class AllPokemon extends React.Component {
 			method: "GET",
 			dataType: 'json',
 			success: function(data){
-				// vm.setState({ allPokemon: data.results});
-				for (let i=0; i < 802; i++) {
-					let tempArray = vm.state.allPokemon.slice();
-					tempArray.push(data.results[i]);
-					vm.setState({ allPokemon: tempArray});
-				}
+				vm.setState({ allPokemon: data.results.slice(0, 802)});
 			},
 			error: function(xhr, status, err) {
 				console.log("The error code is " + err);
