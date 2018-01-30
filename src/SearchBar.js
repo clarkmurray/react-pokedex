@@ -1,10 +1,14 @@
 import React from 'react';
+import { Link, Route, withRouter } from 'react-router-dom';
 
 
-export default class SearchBar extends React.Component {
+class SearchBar extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			searchedPokemon: ''
+		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -13,7 +17,7 @@ export default class SearchBar extends React.Component {
 			<div className="container-fluid">
 				<div className="row pt-3 pb-3 searchRow">
 					<div className="col-md-3 col-xs text-center">
-						<h4>React Pokedex</h4>
+						<Link to="/"><h4 id="appTitle">React Pokedex</h4></Link>
 					</div>
 					<div className="col-md-9 col-xs text-center">
 						<form onSubmit={this.handleSubmit}>
@@ -32,9 +36,13 @@ export default class SearchBar extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.onSearch(this.refs.searchPokemon.value.toLowerCase());
+		let searchedPokemon = this.refs.searchPokemon.value;
 		this.refs.searchPokemon.value = '';
+		console.log(this.props);
+		this.props.history.push(`/${searchedPokemon}`);
 	}
 
 
 }
+
+export default withRouter(SearchBar);

@@ -38,3 +38,15 @@ body {
 .flavorText {
 	background-color: #E6EEF1;
 }
+
+a, a:hover, a:visited {
+	text-decoration: none;
+}
+
+#appTitle {
+	color: white;
+}
+
+.card-header, .card-title {
+	color: black;
+}
