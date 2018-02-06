@@ -38,7 +38,6 @@ class SearchBar extends React.Component {
 		event.preventDefault();
 		let searchedPokemon = this.refs.searchPokemon.value;
 		this.refs.searchPokemon.value = '';
-		console.log(this.props);
 		this.props.history.push(`/${searchedPokemon}`);
 	}
 
