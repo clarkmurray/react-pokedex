@@ -27,7 +27,7 @@ export default class Result extends React.Component {
 		const loading = this.props.loading;
 		return (
 			<div>
-				{loading ? <LoadingSpinner /> : <PokemonResult {...this.state} />}
+				{loading ? <LoadingSpinner loading={loading}/> : <PokemonResult {...this.state} />}
 			</div>
 		)
 	}
