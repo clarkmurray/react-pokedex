@@ -5,30 +5,12 @@ import { Route, Link } from 'react-router-dom';
 export default class AllPokemon extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {
-			allPokemon: []
-		}
-	}
-
-	componentDidMount() {
-		let vm = this;
-		$.ajax({
-			url: "https://pokeapi.co/api/v2/pokemon/?limit=949",
-			method: "GET",
-			dataType: 'json',
-			success: function(data){
-				vm.setState({ allPokemon: data.results.slice(0, 802)});
-			},
-			error: function(xhr, status, err) {
-				console.log("The error code is " + err);
-			}
-		})
 	}
 
 	render() {
 		return (
 			<div className="row mt-3">
-					{this.state.allPokemon.map(function(pokemon, index) {
+					{this.props.pokemon.map(function(pokemon, index) {
 						index = index + 1;
 						if (index < 10) {
 							index = "00" + index;
