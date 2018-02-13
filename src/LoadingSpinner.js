@@ -14,18 +14,10 @@ export default class LoadingSpinner extends React.Component {
 		return (
 			<div className="row mt-4">
 				<div className="col text-center">
-					<img src="http://thecraftchop.com/files/others/Pokeball.svg" height="400px" width="400px"
-					style ={{transform: `rotate(${rotation}deg`}} />
+					<img src="http://thecraftchop.com/files/others/Pokeball.svg" height="200px" width="200px" className="rotating" />
 				</div>
 			</div>
 		);
-	}
-
-	componentDidMount(){
-		console.log(this.props.loading);
-		// while(this.props.loading) {
-		// 	setTimeout(function() { this.rotate(); }.bind(this), 500);
-		// }
 	}
 
 	rotate() {
