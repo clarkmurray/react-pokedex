@@ -16,10 +16,12 @@ class SearchBar extends React.Component {
 		return (
 			<div className="container-fluid">
 				<div className="row pt-3 pb-3 searchRow">
-					<div className="col-md-3 col-xs text-center">
-						<Link to="/"><h4 id="appTitle">React Pokedex</h4></Link>
+					<div className="col-md-2 col-xs text-center">
+						<Link to="/">
+							<h4 id="appTitle">Pokedex</h4>
+						</Link>
 					</div>
-					<div className="col-md-9 col-xs text-center">
+					<div className="col-md-10 col-xs text-center">
 						<form onSubmit={this.handleSubmit}>
 							<div className="input-group">
 								<input className="form-control" placeholder='Search for a Pokemon' ref='searchPokemon' id="searchBar"></input>

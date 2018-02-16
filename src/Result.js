@@ -3,9 +3,11 @@ import $ from 'jquery';
 
 import LoadingSpinner from './LoadingSpinner.js';
 import PokemonResult from './PokemonResult.js';
+import NoResults from './NoResults.js';
 
 
 export default class Result extends React.Component {
+
 	constructor(props){
 		super(props);
 		this.ajaxCalls = this.ajaxCalls.bind(this);
@@ -19,22 +21,26 @@ export default class Result extends React.Component {
 			abilities: [],
 			category: '',
 			entry: '',
-			evolutions: [],
+			evolutions: []
 		}
 	}
 
 	render(){
 		const loading = this.props.loading;
-		return (
-			<div>
-				{loading ? <LoadingSpinner loading={loading}/> : <PokemonResult {...this.state} />}
-			</div>
-		)
+		const searchFailed = this.props.searchFailed;
+		if (loading) {
+			return <LoadingSpinner loading={loading}/>;
+		} else if (searchFailed) {
+			return <NoResults pokemon={this.props.match.params.name} />;
+		} else {
+			return <PokemonResult {...this.state} />;
+		}
 	}
 
 	componentDidMount() {
 		this.props.toggleLoading(true);
-		console.log(this.props);
+		console.log("Props are" + this.props);
+		console.log("searchFailed is " + this.props.searchFailed);
 		this.ajaxCalls(this.props.match.params.name);
 	}
 
@@ -111,6 +117,7 @@ export default class Result extends React.Component {
 									evolutions: evolutions
 								});
 								this.props.toggleLoading(false);
+								this.props.searchSuccess(false);
 							}.bind(this), // make sure to bind the success function in order to set state
 							error: function(xhr, status, err) {
 								console.log(err);
@@ -120,7 +127,6 @@ export default class Result extends React.Component {
 					error: function(xhr, status, err) {
 						console.log(err);
 					}
-
 				});
 				this.setState({ 
 					pokemon: data.name,
@@ -134,12 +140,16 @@ export default class Result extends React.Component {
 					abilities: data.abilities.map(function(ability){
 						return ability.ability.name;
 					}),
-					entry: null,
-					searchFailed: false
+					entry: null
 				});
-			}.bind(this), // make sure to bind the success function in order to set state
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.log("There was an error");
+				this.props.searchSuccess(true);
+				this.props.toggleLoading(false);
+				console.log("searchFailed is now " + this.props.searchFailed);
+			}.bind(this)
 		});
 	}
-
 
 }

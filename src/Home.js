@@ -7,6 +7,7 @@ import AllPokemon from './AllPokemon.js';
 
 
 export default class Home extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -29,6 +30,7 @@ export default class Home extends React.Component {
 			},
 			error: function(xhr, status, err) {
 				console.log("The error code is " + err);
+
 			}
 		})
 		console.log(this.props);
@@ -43,4 +45,5 @@ export default class Home extends React.Component {
 
 		)
 	}
+	
 }

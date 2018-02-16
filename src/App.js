@@ -13,6 +13,7 @@ export default class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.toggleLoading = this.toggleLoading.bind(this);
+		this.searchSuccess = this.searchSuccess.bind(this);
 		this.state = { 
 			searchFailed: false,
 			loading: true
@@ -24,8 +25,8 @@ export default class App extends React.Component {
 			<div>
 				<SearchBar toggleLoading={this.toggleLoading} />
 				<div className="container">
-					<Route exact path="/" render={(props) => (<Home loading={this.state.loading} toggleLoading = {this.toggleLoading} />)} />
-					<Route path="/:name" render={routeProps => (<Result {...routeProps} loading={this.state.loading} toggleLoading = {this.toggleLoading} /> )} />
+					<Route exact path="/" render={(props) => (<Home loading={this.state.loading} toggleLoading = {this.toggleLoading} />)} searchFailed={this.state.searchFailed} />
+					<Route path="/:name" render={routeProps => (<Result {...routeProps} loading={this.state.loading} toggleLoading = {this.toggleLoading} searchFailed={this.state.searchFailed} searchSuccess={this.searchSuccess} /> )} />
 				</div>
 			</div>
 		)
@@ -37,4 +38,12 @@ export default class App extends React.Component {
 		});
 	}
 
+	searchSuccess(bool) {
+		console.log("searchSuccess method entered");
+		this.setState({
+			searchFailed: bool
+		});
+	
+	}
+	
 }
